@@ -1,3 +1,17 @@
+# Copyright 2017 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # Original code at https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py and 
 # License is at https://github.com/fchollet/keras/blob/master/LICENSE
 
@@ -8,13 +22,20 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
+import os
+from IPython.utils.path import ensure_dir_exists
 
 batch_size = 32
 num_classes = 10
 epochs = 200
 data_augmentation = True
+save_dir = os.getcwd() + "/saved_models/"
+model_name = "keras_cifar10_trained_model.h5"
+weights_name = 'keras_cifar10_weights.h5'
 
 # The data, shuffled and split between train and test sets:
+print("Loading data...")
+
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 print('x_train shape:', x_train.shape)
 print(x_train.shape[0], 'train samples')
@@ -24,6 +45,7 @@ print(x_test.shape[0], 'test samples')
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
+print("Defining structure...")
 model = Sequential()
 
 model.add(Conv2D(32, (3, 3), padding='same',
@@ -95,3 +117,10 @@ else:
                         steps_per_epoch=x_train.shape[0] // batch_size,
                         epochs=epochs,
                         validation_data=(x_test, y_test))
+
+# Save model
+print("Saving...")
+ensure_dir_exists(save_dir)
+model.save(save_dir+model_name)
+model.save_weights(save_dir+weights_name)
+
