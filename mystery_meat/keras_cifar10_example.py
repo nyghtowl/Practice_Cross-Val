@@ -116,16 +116,9 @@ else:
                                      batch_size=batch_size),
                         steps_per_epoch=x_train.shape[0] // batch_size,
                         epochs=epochs,
-                        validation_data=(x_test, y_test),
+                        #validation_data=(x_test, y_test),
                         workers=8)
 
-    flow_from_directory(
-        testPath,
-        target_size=(blockWidth, blockHeight),
-        color_mode='grayscale',
-        batch_size=batchSize,
-        class_mode='categorical',
-        shuffle=False)
 
 # Save model
 print("Saving...")
@@ -134,11 +127,6 @@ model.save(save_dir+model_name)
 model.save_weights(save_dir+weights_name)
 
 #Load Model
-from keras.models import load_model
-import os
-import keras
-save_dir = os.getcwd() + "/saved_models/"
-model_name = "keras_cifar10_trained_model.h5"
 model = keras.models.load_model(save_dir+model_name)
 
 # Evaluate
