@@ -13,14 +13,14 @@
 # limitations under the License.
 
 # Built on fast.ai script: https://github.com/fastai/courses/blob/master/setup/install-gpu.sh
-# This script is designed to work with ubuntu 16.04 LTS
+# Script is designed to work with ubuntu 16.04 LTS
 
 # ensure system is updated and has basic build tools
 sudo apt-get update
 sudo apt-get --assume-yes upgrade
 sudo apt-get --assume-yes install tmux build-essential gcc g++ make binutils
 sudo apt-get --assume-yes install software-properties-common
-sudo apt-get install htop
+sudo apt-get --assume-yes install htop
 
 # download and install GPU drivers
 echo
@@ -51,7 +51,7 @@ echo "**************** Anaconda Install *******************"
 echo
 mkdir downloads
 cd downloads
-wget "https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh" -O "Anaconda2-4.2.0-Linux-x86_64.sh"
+wget "https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh" -O "Anaconda2-4.4.0-Linux-x86_64.sh"
 bash "Anaconda2-4.2.0-Linux-x86_64.sh" -b
 
 echo "export PATH=\"$HOME/anaconda2/bin:\$PATH\"" >> ~/.bashrc
@@ -75,8 +75,8 @@ root = /usr/local/cuda" > ~/.theanorc
 echo
 echo "**************** TensorFlow Install *******************"
 echo
-sudo apt-get install python-pip python-de # for Python 2.7
-sudo apt-get install libcupti-dev
+sudo apt-get --assume-yes install python-pip python-de # for Python 2.7
+sudo apt-get --assume-yes install libcupti-dev
 pip install tensorflow-gpu
 
 # install and configure keras (https://keras.io/#installation)
@@ -99,7 +99,7 @@ echo
 pip install http://download.pytorch.org/whl/cu80/torch-0.1.12.post2-cp27-none-linux_x86_64.whl 
 pip install torchvision
 # h5py
-sudo apt-get install libhdf5-dev
+sudo apt-get --assume-yes install libhdf5-dev
 pip install h5py
 #Protocol Buffers 3
 curl -OL https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip

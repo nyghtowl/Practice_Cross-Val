@@ -23,19 +23,27 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 import os
+import pickle
 from IPython.utils.path import ensure_dir_exists
+import numpy as np
 
 batch_size = 32
 num_classes = 10
 epochs = 200
+workers = 8
+num_pred_print = 20
 data_augmentation = True
 save_dir = os.getcwd() + "/saved_models/"
 model_name = "keras_cifar10_trained_model.h5"
 weights_name = 'keras_cifar10_weights.h5'
 
+# load label names
+label_list = os.path.expanduser("~") + '/.keras/datasets/cifar-10-batches-py/batches.meta'
+with open(label_list, mode='rb') as f:
+        labels = pickle.load(f)
+
 # The data, shuffled and split between train and test sets:
 print("Loading data...")
-
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 print('x_train shape:', x_train.shape)
 print(x_train.shape[0], 'train samples')
@@ -117,7 +125,7 @@ else:
                         steps_per_epoch=x_train.shape[0] // batch_size,
                         epochs=epochs,
                         #validation_data=(x_test, y_test),
-                        workers=8)
+                        workers=workers)
 
 
 # Save model
@@ -126,20 +134,25 @@ ensure_dir_exists(save_dir)
 model.save(save_dir+model_name)
 model.save_weights(save_dir+weights_name)
 
-#Load Model
-model = keras.models.load_model(save_dir+model_name)
 
 # Evaluate
 print("Evaluating...")
 evaluation = model.evaluate_generator(datagen.flow(x_test, y_test,
-                                     batch_size=batch_size),
-                        steps=x_test.shape[0] // batch_size,
-                        workers=8)
-print "Accuracy = ", evaluation[1] 
-print evaluation
+                                    batch_size=batch_size),
+                                    steps=x_test.shape[0] // batch_size,
+                                    workers=workers)
 
-predict = model.predict_generator(datagen.flow(x_test, y_test,
-                                     batch_size=batch_size),
+eval_results = zip(model.metrics_names, evaluation)
+print("Evaluation results = ", *eval_results)
+
+
+print("Predicting...")
+pred_y = model.predict_generator(datagen.flow(x_test, y_test,
+                        batch_size=batch_size),
                         steps=x_test.shape[0] // batch_size,
-                        workers=8)
+                        workers=workers)
+
+for idx, y in enumerate(pred_y):
+  print("Actual | Predicted = = %s | %s"% (labels['label_names'][np.argmax(y_test[idx])], labels['label_names'][np.argmax(y)]))
+  if idx == num_pred_print: break
 
