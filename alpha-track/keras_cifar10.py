@@ -1,3 +1,7 @@
+# Original code at https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py  
+# Original license at https://github.com/fchollet/keras/blob/master/LICENSE
+#
+# All revisions and additions:
 # Copyright 2017 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Original code at https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py  
-# Original license is at https://github.com/fchollet/keras/blob/master/LICENSE
 
 from __future__ import print_function
 import keras

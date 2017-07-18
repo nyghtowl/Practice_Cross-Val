@@ -1,3 +1,7 @@
+# Built on fast.ai script: https://github.com/fastai/courses/blob/master/setup/install-gpu.sh
+# Original license at https://github.com/fastai/courses/blob/master/LICENSE.txt
+#
+# All revisions and additions:
 # Copyright 2017 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,8 +15,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# Built on fast.ai script: https://github.com/fastai/courses/blob/master/setup/install-gpu.sh
+#
 # Script is designed to work with ubuntu 16.04 LTS
 
 # ensure system is updated and has basic build tools
