@@ -5,16 +5,19 @@ Mixed Tape
 
 Contents
 -----------------
-More to come...
+alpha-track: Holds a Keras CNN neural net example using the CIFAR-10 dataset
 
 Requirements
 -----------------
+alpha-track: Use the install script to setup requirements
 
 Issues
 -----------------
+None that I know of
 
 Resources
 -----------------
+[Keras](https://github.com/fchollet/keras)
 
 Disclaimer
 ----------------- 
