@@ -39,6 +39,13 @@ save_dir = os.path.join(os.getcwd(), 'saved_models')
 model_name = 'keras_cifar10_trained_model.h5'
 weights_name = 'keras_cifar10_weights.h5'
 
+# The data, shuffled and split between train and test sets:
+print('Loading data...')
+(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+print('x_train shape:', x_train.shape)
+print(x_train.shape[0], 'train samples')
+print(x_test.shape[0], 'test samples')
+
 # load label names
 keras_dir = os.path.expanduser(os.path.join('~', '.keras'))
 if not os.access(keras_dir, os.W_OK):
@@ -46,13 +53,6 @@ if not os.access(keras_dir, os.W_OK):
 label_list = os.path.join(keras_dir, 'datasets/cifar-10-batches-py/batches.meta')
 with open(label_list, mode='rb') as f:
         labels = pickle.load(f)
-
-# The data, shuffled and split between train and test sets:
-print('Loading data...')
-(x_train, y_train), (x_test, y_test) = cifar10.load_data()
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
 
 # Convert class vectors to binary class matrices.
 y_train = keras.utils.to_categorical(y_train, num_classes)
