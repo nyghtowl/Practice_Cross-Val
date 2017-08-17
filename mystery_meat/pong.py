@@ -1,4 +1,15 @@
-""" Trains an agent with (stochastic) Policy Gradients on Pong. Uses OpenAI Gym. """
+""" 
+Copied from https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5 
+Trains an agent with (stochastic) Policy Gradients on Pong. Uses OpenAI Gym.
+
+Additional setup needed....
+pip install  gym
+sudo apt-get install cmake
+sudo apt-get install zlib1g-dev
+pip install gym[atari]
+
+
+"""
 import numpy as np
 import cPickle as pickle
 import gym
@@ -45,8 +56,8 @@ def discount_rewards(r):
     running_add = 0
     for t in reversed(xrange(0, r.size)):
         if r[t] != 0: running_add = 0 # reset the sum, since this was a game boundary (pong specific!)
-            running_add = running_add * gamma + r[t]
-            discounted_r[t] = running_add
+        running_add = running_add * gamma + r[t]
+        discounted_r[t] = running_add
     return discounted_r
 
 
